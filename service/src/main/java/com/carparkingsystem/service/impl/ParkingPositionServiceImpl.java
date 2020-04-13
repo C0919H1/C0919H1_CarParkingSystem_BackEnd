@@ -1,6 +1,8 @@
 package com.carparkingsystem.service.impl;
 
+
 import com.carparkingsystem.dao.DTO.ParkingPositionDTO;
+
 import com.carparkingsystem.dao.entity.ParkingFloor;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.dao.repository.ParkingPositionRepository;
@@ -24,6 +26,7 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
     }
 
     @Override
+
     public Page<ParkingPositionDTO> pageFindAll(Pageable pageable) {
         Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAll(pageable);
         Page<ParkingPositionDTO> parkingPositionDTOS;
@@ -37,6 +40,7 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
             return parkingPositionDTO;
         });
         return parkingPositionDTOS;
+
     }
 
     @Override

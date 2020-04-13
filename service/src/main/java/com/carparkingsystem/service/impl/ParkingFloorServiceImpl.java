@@ -6,6 +6,7 @@ import com.carparkingsystem.service.ParkingFloorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
@@ -22,4 +23,5 @@ public class ParkingFloorServiceImpl implements ParkingFloorService {
     public List<ParkingFloor> getAllParkingFloor() {
         return parkingFloorRepository.findAll();
     }
+
 }

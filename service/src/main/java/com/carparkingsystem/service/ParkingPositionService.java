@@ -1,6 +1,8 @@
 package com.carparkingsystem.service;
 
+
 import com.carparkingsystem.dao.DTO.ParkingPositionDTO;
+
 import com.carparkingsystem.dao.entity.ParkingFloor;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import java.util.List;
 public interface ParkingPositionService {
     ParkingPosition getAllParkingPositionById(Long idParkingPosition);
 
+
     Page<ParkingPositionDTO> pageFindAll(Pageable pageable);
 
     ParkingPosition getAllParkingPositionByName(String nameParkingPosition);
@@ -21,6 +24,7 @@ public interface ParkingPositionService {
     Page<ParkingPositionDTO> getAllParkingPositionByFloor(Pageable pageable, ParkingFloor parkingFloor);
 
     Page<ParkingPositionDTO> getAllParkingPositionByFloorAndNameOfPosition(Pageable pageable, ParkingFloor parkingFloor, String nameParkingPosition);
+
 
     List<ParkingPosition> getAllParkingPosition();
 

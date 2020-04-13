@@ -2,6 +2,7 @@ package com.carparkingsystem.service;
 
 import com.carparkingsystem.dao.DTO.TicketDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO2;
+import com.carparkingsystem.dao.DTO.TicketDTO3;
 import com.carparkingsystem.dao.entity.Ticket;
 import com.carparkingsystem.dao.entity.Vehicle;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,8 @@ public interface TicketService {
     boolean deleteTicket(Long idTicket);
 
     TicketDTO findTicketById(Long idTicket);
+
+    TicketDTO3 findTicketByIdParkingPosition(Long idTicket);
 
     Page<TicketDTO> pageFindAll(Pageable pageable);
 
