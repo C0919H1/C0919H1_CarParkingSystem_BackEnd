@@ -2,6 +2,7 @@ package com.carparkingsystem.service.impl;
 
 import com.carparkingsystem.dao.DTO.TicketDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO2;
+import com.carparkingsystem.dao.DTO.TicketDTO3;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.dao.entity.Ticket;
 import com.carparkingsystem.dao.entity.TicketType;
@@ -150,7 +151,8 @@ public class TicketServiceImpl implements TicketService {
     public TicketDTO findTicketById(Long idTicket) {
         Ticket ticket = ticketRepository.findByIdTicketAndDeletedIsFalse(idTicket);
         if (ticket!=null){
-            return new TicketDTO(ticket.getIdTicket(),
+            return new TicketDTO(
+                    ticket.getIdTicket(),
                     ticket.getVehicle().getLicensePlate(),
                     ticket.getVehicle().getCustomer().getFullName(),
                     ticket.getStartDate(),
@@ -158,7 +160,31 @@ public class TicketServiceImpl implements TicketService {
                     ticket.getParkingPosition().getParkingFloor().getNameFloor(),
                     ticket.getParkingPosition().getNameOfPosition(),
                     ticket.getTicketType().getNameTicketType(),
-                    ticket.getTicketType().getCost());
+                    ticket.getTicketType().getCost()
+            );
+        }
+        return null;
+    }
+
+    @Override
+    public TicketDTO3 findTicketByIdParkingPosition(Long idTicket) {
+        Ticket ticket = ticketRepository.findAllByParkingPosition_IdParkingPositionAndDeletedIsFalse(idTicket);
+        if (ticket!=null){
+            return new TicketDTO3(
+                    ticket.getIdTicket(),
+                    ticket.getVehicle().getLicensePlate(),
+                    ticket.getVehicle().getTypeOfVehicle(),
+                    ticket.getVehicle().getCustomer().getFullName(),
+                    ticket.getVehicle().getCustomer().getPhoneNumber(),
+                    ticket.getVehicle().getCustomer().getEmail(),
+                    ticket.getVehicle().getCustomer().getDateOfBirth(),
+                    ticket.getStartDate(),
+                    ticket.getEndDate(),
+                    ticket.getParkingPosition().getParkingFloor().getNameFloor(),
+                    ticket.getParkingPosition().getNameOfPosition(),
+                    ticket.getTicketType().getNameTicketType(),
+                    ticket.getTicketType().getCost()
+            );
         }
         return null;
     }

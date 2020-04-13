@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +28,17 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     private TicketRepository ticketRepository;
+
+    @Override
+    public List<VehicleDTO> getAllVehicle() {
+        List<Vehicle> vehicleList = vehicleRepository.findAllByDeletedIsFalse();
+        List<VehicleDTO> vehicleDTOS = new ArrayList<>();
+        for (Vehicle vehicle : vehicleList){
+            VehicleDTO vehicleDTO= new VehicleDTO(vehicle.getIdVehicle(),vehicle.getTypeOfVehicle(),vehicle.getLicensePlate(),"","");
+            vehicleDTOS.add(vehicleDTO);
+        }
+        return vehicleDTOS;
+    }
 
     @Override
     public Page<VehicleDTO> findAllByCustomer(Customer customer, Pageable pageable) {
@@ -60,9 +73,6 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
 
-    public List<Vehicle> getAllVehicle() {
-        return (List<Vehicle>) vehicleRepository.findAll();
-    }
     public Vehicle getAllVehicleByLicensePlate(String licensePlate) {
         return vehicleRepository.findAllByLicensePlate(licensePlate);
     }

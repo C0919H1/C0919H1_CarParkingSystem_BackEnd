@@ -1,9 +1,12 @@
 package com.carparkingsystem.service.impl;
 
+import com.carparkingsystem.dao.entity.ParkingFloor;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.dao.repository.ParkingPositionRepository;
 import com.carparkingsystem.service.ParkingPositionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,30 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
     }
 
     @Override
+    public Page<ParkingPosition> pageFindAll(Pageable pageable) {
+        Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAll(pageable);
+        return parkingPositions;
+    }
+
+    @Override
     public ParkingPosition getAllParkingPositionByName(String nameParkingPosition) {
         return parkingPositionRepository.findAllByNameOfPosition(nameParkingPosition);
+    }
+
+    @Override
+    public Page<ParkingPosition> getAllParkingPositionByName(Pageable pageable, String nameParkingPosition) {
+        return parkingPositionRepository.findAllByNameOfPositionContaining(pageable,nameParkingPosition);
+    }
+
+    @Override
+    public Page<ParkingPosition> getAllParkingPositionByFloor(Pageable pageable, ParkingFloor parkingFloor) {
+        Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAllByParkingFloor(pageable,parkingFloor);
+        return parkingPositions;
+    }
+
+    @Override
+    public Page<ParkingPosition> getAllParkingPositionByFloorAndNameOfPosition(Pageable pageable, ParkingFloor parkingFloor, String nameParkingPosition) {
+        return parkingPositionRepository.findAllByParkingFloorAndNameOfPositionContaining(pageable,parkingFloor,nameParkingPosition);
     }
 
     @Override

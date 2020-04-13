@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface VehicleService {
-    List<Vehicle> getAllVehicle();
+    List<VehicleDTO> getAllVehicle();
     Page<VehicleDTO> findAllByCustomer(Customer customer,Pageable pageable);
     void saveVehicle(Vehicle vehicle);
     Vehicle getVehicle(Long idvehicle);
