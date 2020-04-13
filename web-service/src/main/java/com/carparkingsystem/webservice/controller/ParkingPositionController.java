@@ -1,5 +1,6 @@
 package com.carparkingsystem.webservice.controller;
 
+import com.carparkingsystem.dao.DTO.ParkingPositionDTO;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.service.ParkingFloorService;
 import com.carparkingsystem.service.ParkingPositionService;
@@ -26,7 +27,7 @@ public class ParkingPositionController {
                                               @RequestParam("size") int size,
                                               @RequestParam("search") String position) {
         List<ParkingPosition> parkingPositions = parkingPositionService.getAllParkingPosition();
-        Page<ParkingPosition> parkingPositionPage;
+        Page<ParkingPositionDTO> parkingPositionPage;
         if (parkingPositions.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -45,7 +46,7 @@ public class ParkingPositionController {
                                               @RequestParam("search") String position,
                                               @RequestParam("floor") int idFloor) {
         List<ParkingPosition> parkingPositions = parkingPositionService.getAllParkingPosition();
-        Page<ParkingPosition> parkingPositionPage;
+        Page<ParkingPositionDTO> parkingPositionPage;
         if (parkingPositions.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
