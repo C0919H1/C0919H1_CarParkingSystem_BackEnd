@@ -23,6 +23,10 @@ public class EmployeeDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public EmployeeDTO(Long idEmployee) {
+        this.idEmployee = idEmployee;
+    }
+
     public Long getIdEmployee() {
         return idEmployee;
     }

@@ -3,7 +3,9 @@ package com.carparkingsystem.webservice.controller;
 import com.carparkingsystem.dao.DTO.TicketDTO;
 
 import com.carparkingsystem.dao.DTO.TicketDTO2;
+import com.carparkingsystem.dao.DTO.TicketDTO3;
 
+import com.carparkingsystem.dao.entity.Ticket;
 import com.carparkingsystem.service.TicketService;
 import com.carparkingsystem.service.TicketTypeService;
 import com.carparkingsystem.service.VehicleService;
@@ -74,6 +76,16 @@ public class TicketController {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("ticketByParkingPosition/{idParkingPosition}")
+    public ResponseEntity<?> getTicketByIdParkingPosition(@PathVariable Long idParkingPosition){
+        TicketDTO3 ticket = ticketService.findTicketByIdParkingPosition(idParkingPosition);
+        if (ticket!= null){
+            return new ResponseEntity<>(ticket,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
