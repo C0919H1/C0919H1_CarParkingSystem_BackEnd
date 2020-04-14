@@ -2,16 +2,23 @@ package com.carparkingsystem.webservice.controller;
 
 import com.carparkingsystem.dao.DTO.JwtResponse;
 import com.carparkingsystem.dao.DTO.UserDTO;
+import com.carparkingsystem.service.UserService;
 import com.carparkingsystem.service.impl.UserServiceImpl;
 import com.carparkingsystem.webservice.security.JwtTokenUtil;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "Authorization")
@@ -24,7 +31,11 @@ public class UserController {
     JwtTokenUtil jwtTokenUtil;
 
     @Autowired(required = false)
-    UserServiceImpl userServiceImpl;
+    UserService userService;
+
+    @Qualifier("UserServiceImpl")
+    @Autowired(required = false)
+    UserDetailsService userDetailsService;
 
     private UserDTO userDTO;
 
@@ -46,9 +57,25 @@ public class UserController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword())
         );
-        UserDetails userDetails = userServiceImpl
+        //Truyền dữ liệu lên frontend thông qua token
+        UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authentication.getName());
         String jwtToken=jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok( new JwtResponse(jwtToken,userDetails.getUsername()));
+        return ResponseEntity.ok( new JwtResponse(jwtToken,userDetails.getUsername(), userService.findByNameEmployee(user.getUsername())));
+    }
+
+    @GetMapping("/forgot-password/{username}")
+    //Gửi lên body web một string username
+    public ResponseEntity<?> forgotPassword(@PathVariable String username) throws JSONException {
+        String nameEmployee= userService.findByNameEmployee(username);
+        //Kiểm tra nếu username có tồn tại trong hệ thống ko? Trả về 2 kết quả
+        if(nameEmployee==null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            Map<String,String> map=new HashMap<>();
+            map.put("email",userService.findByEmailEmployee(username));
+            return new ResponseEntity<>(map,HttpStatus.OK);
+        }
     }
 }
