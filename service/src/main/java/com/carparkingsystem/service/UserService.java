@@ -8,5 +8,7 @@ import java.util.List;
 public interface UserService {
     List<UserDTO> findAll();
 
-    UserDetails loadUserByUsername(String username);
+    String findByNameEmployee(String username);
+
+    String findByEmailEmployee(String username);
 }

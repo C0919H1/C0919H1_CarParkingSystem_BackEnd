@@ -1,6 +1,6 @@
 package com.carparkingsystem.webservice.controller;
-
 import com.carparkingsystem.dao.DTO.ParkingPositionEditDTO;
+import com.carparkingsystem.dao.DTO.ParkingPositionDTO;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.service.ParkingFloorService;
 import com.carparkingsystem.service.ParkingPositionService;
@@ -10,9 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -42,7 +39,8 @@ public class ParkingPositionController {
                                               @RequestParam("size") int size,
                                               @RequestParam("search") String position) {
         List<ParkingPosition> parkingPositions = parkingPositionService.getAllParkingPosition();
-        Page<ParkingPosition> parkingPositionPage;
+
+        Page<ParkingPositionDTO> parkingPositionPage;
         if (parkingPositions.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -61,7 +59,8 @@ public class ParkingPositionController {
                                               @RequestParam("search") String position,
                                               @RequestParam("floor") int idFloor) {
         List<ParkingPosition> parkingPositions = parkingPositionService.getAllParkingPosition();
-        Page<ParkingPosition> parkingPositionPage;
+
+        Page<ParkingPositionDTO> parkingPositionPage;
         if (parkingPositions.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -73,6 +72,17 @@ public class ParkingPositionController {
         }
         return new ResponseEntity<>(parkingPositionPage, HttpStatus.OK);
     }
+
+
+    @GetMapping("/parkingposition/{id}")
+    public ResponseEntity<?> parkingposition(@PathVariable Long id){
+        ParkingPosition parkingPosition = parkingPositionService.getParkingPositionById(id);
+        if (parkingPosition == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(parkingPosition, HttpStatus.OK);
+    }
+
 
     @GetMapping("/parkingposition")
     public ResponseEntity<?> ticket() {
@@ -136,18 +146,18 @@ public class ParkingPositionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/parkingposition/{id}")
-    public ResponseEntity<?> getParkingById(@PathVariable("id") Long id){
-        ParkingPosition parkingPosition = parkingPositionService.getAllParkingPositionById(id);
+    @GetMapping("/parkingposition/{idPosition}")
+    public ResponseEntity<?> getParkingById(@PathVariable("idPosition") Long id){
+        ParkingPosition parkingPosition = parkingPositionService.getParkingPositionById(id);
         if (parkingPosition != null){
             return new ResponseEntity<>(parkingPosition, HttpStatus.OK);
         }
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @PutMapping("parkingposition/{id}")
+    @PutMapping("/parkingposition/{id}")
     public ResponseEntity<?> editParkingPositionById(@PathVariable Long id, @RequestBody ParkingPositionEditDTO parkingPositionEditDTO
                                                      ){
-       ParkingPosition parkingPosition1 = parkingPositionService.getAllParkingPositionById(id);
+       ParkingPosition parkingPosition1 = parkingPositionService.getParkingPositionById(id);
        if(parkingPosition1 != null){
           parkingPosition1.setNameOfPosition(parkingPositionEditDTO.getParkingPosition().getNameOfPosition());
           parkingPosition1.setParkingFloor(parkingFloorService.getParkingFloor(parkingPositionEditDTO.getFloor()));

@@ -1,5 +1,8 @@
 package com.carparkingsystem.service.impl;
 
+
+import com.carparkingsystem.dao.DTO.ParkingPositionDTO;
+
 import com.carparkingsystem.dao.entity.ParkingFloor;
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.dao.repository.ParkingPositionRepository;
@@ -18,8 +21,8 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
 
 
     @Override
-    public ParkingPosition getAllParkingPositionById(Long idParkingPosition) {
-        return parkingPositionRepository.findById(idParkingPosition).orElse(null);
+    public ParkingPosition getParkingPositionById(Long id) {
+        return parkingPositionRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -28,9 +31,21 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
     }
 
     @Override
-    public Page<ParkingPosition> pageFindAll(Pageable pageable) {
+
+    public Page<ParkingPositionDTO> pageFindAll(Pageable pageable) {
         Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAll(pageable);
-        return parkingPositions;
+        Page<ParkingPositionDTO> parkingPositionDTOS;
+        parkingPositionDTOS = parkingPositions.map(parkingPosition -> {
+            ParkingPositionDTO parkingPositionDTO;
+            if(parkingPosition.isPositionStatus()){
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Đã đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }else{
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Chưa đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }
+            return parkingPositionDTO;
+        });
+        return parkingPositionDTOS;
+
     }
 
     @Override
@@ -39,19 +54,51 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
     }
 
     @Override
-    public Page<ParkingPosition> getAllParkingPositionByName(Pageable pageable, String nameParkingPosition) {
-        return parkingPositionRepository.findAllByNameOfPositionContaining(pageable,nameParkingPosition);
+    public Page<ParkingPositionDTO> getAllParkingPositionByName(Pageable pageable, String nameParkingPosition) {
+        Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAllByNameOfPositionContaining(pageable,nameParkingPosition);
+        Page<ParkingPositionDTO> parkingPositionDTOS;
+        parkingPositionDTOS = parkingPositions.map(parkingPosition -> {
+            ParkingPositionDTO parkingPositionDTO;
+            if(parkingPosition.isPositionStatus()){
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Đã đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }else{
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Chưa đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }
+            return parkingPositionDTO;
+        });
+        return parkingPositionDTOS;
     }
 
     @Override
-    public Page<ParkingPosition> getAllParkingPositionByFloor(Pageable pageable, ParkingFloor parkingFloor) {
+    public Page<ParkingPositionDTO> getAllParkingPositionByFloor(Pageable pageable, ParkingFloor parkingFloor) {
         Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAllByParkingFloor(pageable,parkingFloor);
-        return parkingPositions;
+        Page<ParkingPositionDTO> parkingPositionDTOS;
+        parkingPositionDTOS = parkingPositions.map(parkingPosition -> {
+            ParkingPositionDTO parkingPositionDTO;
+            if(parkingPosition.isPositionStatus()){
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Đã đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }else{
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Chưa đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }
+            return parkingPositionDTO;
+        });
+        return parkingPositionDTOS;
     }
 
     @Override
-    public Page<ParkingPosition> getAllParkingPositionByFloorAndNameOfPosition(Pageable pageable, ParkingFloor parkingFloor, String nameParkingPosition) {
-        return parkingPositionRepository.findAllByParkingFloorAndNameOfPositionContaining(pageable,parkingFloor,nameParkingPosition);
+    public Page<ParkingPositionDTO> getAllParkingPositionByFloorAndNameOfPosition(Pageable pageable, ParkingFloor parkingFloor, String nameParkingPosition) {
+        Page<ParkingPosition> parkingPositions = parkingPositionRepository.findAllByParkingFloorAndNameOfPositionContaining(pageable,parkingFloor,nameParkingPosition);
+        Page<ParkingPositionDTO> parkingPositionDTOS;
+        parkingPositionDTOS = parkingPositions.map(parkingPosition -> {
+            ParkingPositionDTO parkingPositionDTO;
+            if(parkingPosition.isPositionStatus()){
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Đã đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }else{
+                parkingPositionDTO = new ParkingPositionDTO(parkingPosition.getIdParkingPosition(),parkingPosition.getNameOfPosition(), "Chưa đăng ký", parkingPosition.getParkingFloor().getIdParkingFloor());
+            }
+            return parkingPositionDTO;
+        });
+        return parkingPositionDTOS;
     }
 
     @Override

@@ -28,8 +28,8 @@ public class VehicleController {
     VehicleService vehicleService;
 
     @GetMapping("/vehicles")
-    public ResponseEntity<List<Vehicle>> listAllVehicle() {
-        List<Vehicle> vehicles = vehicleService.getAllVehicle();
+    public ResponseEntity<List<VehicleDTO>> listAllVehicle() {
+        List<VehicleDTO> vehicles = vehicleService.getAllVehicle();
         if (vehicles.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -42,7 +42,7 @@ public class VehicleController {
                                             @RequestParam("size") int size,
                                             @RequestParam("search") String licensePlate) {
         idCustomerTemp = id;
-        List<Vehicle> vehicles = vehicleService.getAllVehicle();
+        List<VehicleDTO> vehicles = vehicleService.getAllVehicle();
         Page<VehicleDTO> vehicleDTOPage;
         if (vehicles.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

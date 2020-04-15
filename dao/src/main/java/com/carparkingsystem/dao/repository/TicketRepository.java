@@ -13,8 +13,8 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket,Long> {
     List<Ticket> findAllByDeletedIsFalse();
     Ticket findByIdTicketAndDeletedIsFalse(Long id);
+    Ticket findAllByParkingPosition_IdParkingPositionAndDeletedIsFalse(Long id);
     Page<Ticket> findAllByDeletedIsFalse(Pageable pageable);
     Page<Ticket> findAllByDeletedIsFalseAndVehicleLicensePlateContaining(Pageable pageable,String licensePlate);
     Ticket findByVehicle(Vehicle vehicle);
-
 }
