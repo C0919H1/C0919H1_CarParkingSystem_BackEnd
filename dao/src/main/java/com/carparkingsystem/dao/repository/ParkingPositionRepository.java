@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ParkingPositionRepository extends JpaRepository<ParkingPosition,Long> {
-    ParkingPosition findAllByIdParkingPosition(Long idParkingPosition);
+//    ParkingPosition findAllByIdParkingPosition(Long idParkingPosition);
     ParkingPosition findAllByNameOfPosition(String nameParkingPosition);
     Page<ParkingPosition> findAllByNameOfPositionContaining(Pageable pageable,String nameParkingPosition);
     Page<ParkingPosition> findAllByParkingFloor(Pageable pageable, ParkingFloor parkingFloor);
@@ -20,4 +20,5 @@ public interface ParkingPositionRepository extends JpaRepository<ParkingPosition
     List<ParkingPosition> findAllByPositionStatusIsFalseAndIdParkingPositionBetween(Long first,Long second);
     ParkingPosition findAllByIdParkingPositionAndPositionStatusIsFalse(Long id);
     ParkingPosition findAllByIdParkingPositionAndPositionStatusIsTrue(Long id);
+    List<ParkingPosition> findAllByParkingFloor(ParkingFloor parkingFloor);
 }

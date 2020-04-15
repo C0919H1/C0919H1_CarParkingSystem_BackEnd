@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface ParkingPositionService {
     ParkingPosition getAllParkingPositionById(Long idParkingPosition);
+    List<ParkingPosition> getAllParkingPositionByFloor(ParkingFloor parkingFloor);
 
     Page<ParkingPosition> pageFindAll(Pageable pageable);
 
@@ -30,4 +31,5 @@ public interface ParkingPositionService {
     boolean setStatusPositionTrue(Long idPosition);
 
     boolean setStatusPositionFalse(Long idPosition);
+   void saveParkingPosition(ParkingPosition parkingPosition);
 }

@@ -19,7 +19,12 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
 
     @Override
     public ParkingPosition getAllParkingPositionById(Long idParkingPosition) {
-        return parkingPositionRepository.findAllByIdParkingPosition(idParkingPosition);
+        return parkingPositionRepository.findById(idParkingPosition).orElse(null);
+    }
+
+    @Override
+    public List<ParkingPosition> getAllParkingPositionByFloor(ParkingFloor parkingFloor) {
+        return parkingPositionRepository.findAllByParkingFloor(parkingFloor);
     }
 
     @Override
@@ -85,5 +90,11 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
         }
         return false;
     }
+
+    @Override
+    public void saveParkingPosition(ParkingPosition parkingPosition) {
+        parkingPositionRepository.save(parkingPosition);
+    }
+
 
 }
