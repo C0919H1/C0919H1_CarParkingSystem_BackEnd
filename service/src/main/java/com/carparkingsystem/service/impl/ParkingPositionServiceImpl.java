@@ -22,7 +22,7 @@ public class ParkingPositionServiceImpl implements ParkingPositionService {
 
     @Override
     public ParkingPosition getParkingPositionById(Long id) {
-        return parkingPositionRepository.findById(id).orElse(null);
+        return parkingPositionRepository.findAllByIdParkingPosition(id);
     }
 
     @Override

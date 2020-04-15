@@ -146,14 +146,7 @@ public class ParkingPositionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/parkingposition/{idPosition}")
-    public ResponseEntity<?> getParkingById(@PathVariable("idPosition") Long id){
-        ParkingPosition parkingPosition = parkingPositionService.getParkingPositionById(id);
-        if (parkingPosition != null){
-            return new ResponseEntity<>(parkingPosition, HttpStatus.OK);
-        }
-        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+
     @PutMapping("/parkingposition/{id}")
     public ResponseEntity<?> editParkingPositionById(@PathVariable Long id, @RequestBody ParkingPositionEditDTO parkingPositionEditDTO
                                                      ){
