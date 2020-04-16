@@ -59,7 +59,7 @@ public class EmployeeController {
         } else employeeTemp.setGender(true);
         employeeTemp.setPhoneNumber(employee.getPhoneNumber());
         employeeTemp.setPosition(employee.getPosition());
-        employeeTemp.setDeleted(true);
+        employeeTemp.setDeleted(false);
         employeeService.saveEmployee(employeeTemp);
         return new ResponseEntity<>(employeeTemp, HttpStatus.CREATED);
     }

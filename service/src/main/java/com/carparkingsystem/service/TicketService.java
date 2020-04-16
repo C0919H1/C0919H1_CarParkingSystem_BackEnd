@@ -1,5 +1,6 @@
 package com.carparkingsystem.service;
 
+import com.carparkingsystem.dao.DTO.ReveneDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO2;
 import com.carparkingsystem.dao.DTO.TicketDTO3;
@@ -8,7 +9,10 @@ import com.carparkingsystem.dao.entity.Vehicle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface TicketService {
     List<TicketDTO2> getAllTicketDTO();
@@ -31,4 +35,5 @@ public interface TicketService {
     Page<TicketDTO> pageFindAll(Pageable pageable);
 
     Page<TicketDTO> findAllByVehicleLicensePlateContaining(Pageable pageable, String licensePlate);
+    ArrayList getRevenueAll();
 }

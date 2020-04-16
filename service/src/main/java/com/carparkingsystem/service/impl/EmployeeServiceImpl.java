@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             if (employee.isGender()) {
                 gender = "Nam";
             } else gender = "Nữ";
-            EmployeeDTO courseDTO = new EmployeeDTO(employee.getIdEmployee(), employee.getFullName(), employee.getDateOfBirth(), employee.getAddress(), employee.getEmail(), gender,employee.getPosition() ,employee.getPhoneNumber());
+            EmployeeDTO courseDTO = new EmployeeDTO(employee.getIdEmployee(), employee.getFullName(), employee.getDateOfBirth(), gender,employee.getPosition() ,employee.getPhoneNumber(), employee.getEmail(), employee.getAddress());
             employeeDTOS.add(courseDTO);
         }
         return employeeDTOS;
@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             {
                 gender = "Nam";
             }else gender = "Nữ";
-            EmployeeDTO employeeDTO = new EmployeeDTO(course.getIdEmployee(), course.getFullName(), course.getDateOfBirth(), course.getAddress(), course.getEmail(), gender, course.getPhoneNumber(), course.getPosition());
+            EmployeeDTO employeeDTO = new EmployeeDTO(course.getIdEmployee(), course.getFullName(), course.getDateOfBirth(), gender, course.getPosition(), course.getPhoneNumber(), course.getEmail(), course.getAddress());
             return employeeDTO;
         });
         return employeeDTOPage;
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             {
                 gender = "Nam";
             }else gender = "Nữ";
-            return new EmployeeDTO(employee.getIdEmployee(), employee.getFullName(), employee.getDateOfBirth(), employee.getAddress(), employee.getEmail(), gender, employee.getPhoneNumber(), employee.getPosition());
+            return new EmployeeDTO(employee.getIdEmployee(), employee.getFullName(), employee.getDateOfBirth(), gender,employee.getPosition() ,employee.getPhoneNumber(), employee.getEmail(), employee.getAddress());
         }
         return null;
     }
@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             {
                 gender = "Nam";
             }else gender = "Nữ";
-            EmployeeDTO employeeDTO = new EmployeeDTO(employee.getIdEmployee(), employee.getFullName(), employee.getDateOfBirth(), employee.getAddress(), employee.getEmail(), gender, employee.getPhoneNumber(), employee.getPosition());
+            EmployeeDTO employeeDTO = new EmployeeDTO(employee.getIdEmployee(), employee.getFullName(), employee.getDateOfBirth(), gender,employee.getPosition() ,employee.getPhoneNumber(), employee.getEmail(), employee.getAddress());
             return employeeDTO;
         });
         return employeeDTOS;
