@@ -16,4 +16,10 @@ public interface CustomerService {
     Page<CustomerDTO> findAllByFullNameContaining(Pageable pageable, String fullName);
     boolean findCustomerByIdAndDeletedIsFalse(Long id);
     boolean editCustomer(CustomerDTO customerDTO, Long id);
+
+    static int thanh() {
+        return 0;
+    }
+
+
 }

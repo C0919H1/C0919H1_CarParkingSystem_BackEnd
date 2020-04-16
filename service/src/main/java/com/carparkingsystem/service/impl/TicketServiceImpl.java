@@ -197,6 +197,29 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public TicketDTO3 findTicketByIdAndDeleteIsFalse(Long idTicket) {
+        Ticket ticket = ticketRepository.findByIdTicketAndDeletedIsFalse(idTicket);
+        if (ticket!=null){
+            return new TicketDTO3(
+                    ticket.getIdTicket(),
+                    ticket.getVehicle().getLicensePlate(),
+                    ticket.getVehicle().getTypeOfVehicle(),
+                    ticket.getVehicle().getCustomer().getFullName(),
+                    ticket.getVehicle().getCustomer().getPhoneNumber(),
+                    ticket.getVehicle().getCustomer().getEmail(),
+                    ticket.getVehicle().getCustomer().getDateOfBirth(),
+                    ticket.getStartDate(),
+                    ticket.getEndDate(),
+                    ticket.getParkingPosition().getParkingFloor().getNameFloor(),
+                    ticket.getParkingPosition().getNameOfPosition(),
+                    ticket.getTicketType().getNameTicketType(),
+                    ticket.getTicketType().getCost()
+            );
+        }
+        return null;
+    }
+
+    @Override
     public TicketDTO2 getTicketByVehicle(Vehicle vehicle) {
         Ticket ticket = ticketRepository.findByVehicle(vehicle);
         startDate = ticket.getStartDate().getDate() + "/" + (ticket.getStartDate().getMonth() + 1) + "/" + (ticket.getStartDate().getYear() + 1900);

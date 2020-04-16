@@ -53,6 +53,15 @@ public class TicketController {
         return new ResponseEntity<>(ticketDTO2, HttpStatus.OK);
     }
 
+    @GetMapping("/ticketById/{id}")
+    public ResponseEntity<?> ticketById(@PathVariable Long id){
+        TicketDTO3 ticketDTO3 = ticketService.findTicketByIdAndDeleteIsFalse(id);
+        if (ticketDTO3 == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(ticketDTO3, HttpStatus.OK);
+    }
+
     @GetMapping(value = "", params = {"page", "size", "search"})
     public ResponseEntity<?> getAllCourse(@RequestParam("page") int page,
                                           @RequestParam("size") int size,

@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
     Customer findByIdCustomerAndDeletedIsFalse(Long id);
     Page<Customer> findAllByDeletedIsFalse(Pageable pageable);
     Page<Customer> findAllByDeletedIsFalseAndFullNameContaining(Pageable pageable,String fullName);
+
+
 }

@@ -1,8 +1,6 @@
 package com.carparkingsystem.webservice.controller;
-
-
+import com.carparkingsystem.dao.DTO.ParkingPositionEditDTO;
 import com.carparkingsystem.dao.DTO.ParkingPositionDTO;
-
 import com.carparkingsystem.dao.entity.ParkingPosition;
 import com.carparkingsystem.service.ParkingFloorService;
 import com.carparkingsystem.service.ParkingPositionService;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -23,6 +20,19 @@ public class ParkingPositionController {
     ParkingFloorService parkingFloorService;
     @Autowired
     ParkingPositionService parkingPositionService;
+    @GetMapping(value = "/parkingposition" , params ={"floor"} )
+    public ResponseEntity<?> listParkingFloor(@RequestParam("floor") int floor){
+        List<ParkingPosition> parkingPositions = parkingPositionService.getAllParkingPosition();
+        if (parkingPositions.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else {
+            List<ParkingPosition> parkingPositionList = parkingPositionService.getAllParkingPositionByFloor(parkingFloorService.getParkingFloor(floor));
+            return new ResponseEntity<>(parkingPositionList,HttpStatus.OK);
+        }
+
+
+    }
 
     @GetMapping(value = "/parkingposition", params = {"page", "size", "search"})
     public ResponseEntity<?> listAllCustomers(@RequestParam("page") int page,
@@ -66,7 +76,7 @@ public class ParkingPositionController {
 
     @GetMapping("/parkingposition/{id}")
     public ResponseEntity<?> parkingposition(@PathVariable Long id){
-        ParkingPosition parkingPosition = parkingPositionService.getAllParkingPositionById(id);
+        ParkingPosition parkingPosition = parkingPositionService.getParkingPositionById(id);
         if (parkingPosition == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -136,5 +146,22 @@ public class ParkingPositionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/parkingposition/{id}")
+    public ResponseEntity<?> editParkingPositionById(@PathVariable Long id, @RequestBody ParkingPositionEditDTO parkingPositionEditDTO
+                                                     ){
+       ParkingPosition parkingPosition1 = parkingPositionService.getParkingPositionById(id);
+       if(parkingPosition1 != null){
+          parkingPosition1.setNameOfPosition(parkingPositionEditDTO.getParkingPosition().getNameOfPosition());
+          parkingPosition1.setParkingFloor(parkingFloorService.getParkingFloor(parkingPositionEditDTO.getFloor()));
+           parkingPositionService.saveParkingPosition(parkingPosition1);
+           return new ResponseEntity<>(HttpStatus.OK);
+
+       }
+       else return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+
 
 }

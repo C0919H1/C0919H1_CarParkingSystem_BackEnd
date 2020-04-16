@@ -23,4 +23,5 @@ public interface ParkingPositionRepository extends JpaRepository<ParkingPosition
     List<ParkingPosition> findAllByPositionStatusIsFalseAndIdParkingPositionBetween(Long first,Long second);
     ParkingPosition findAllByIdParkingPositionAndPositionStatusIsFalse(Long id);
     ParkingPosition findAllByIdParkingPositionAndPositionStatusIsTrue(Long id);
+    List<ParkingPosition> findAllByParkingFloor(ParkingFloor parkingFloor);
 }

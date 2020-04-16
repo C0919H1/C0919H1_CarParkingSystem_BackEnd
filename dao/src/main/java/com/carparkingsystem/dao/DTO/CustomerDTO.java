@@ -1,5 +1,9 @@
 package com.carparkingsystem.dao.DTO;
 
+import com.carparkingsystem.service.CustomerService;
+import org.apache.logging.log4j.util.PropertySource;
+
+import java.util.Comparator;
 import java.util.Date;
 
 public class CustomerDTO {
@@ -11,6 +15,11 @@ public class CustomerDTO {
     private String gender;
     private String phoneNumber;
     private String identify;
+    public CustomerDTO(){
+
+    }
+
+
 
     public CustomerDTO(Long idCustomer, String fullName, Date dateOfBirth, String address, String email, String gender, String phoneNumber, String identify) {
         this.idCustomer = idCustomer;
@@ -86,4 +95,9 @@ public class CustomerDTO {
     public void setIdentify(String identify) {
         this.identify = identify;
     }
+
+
 }
+
+
+
