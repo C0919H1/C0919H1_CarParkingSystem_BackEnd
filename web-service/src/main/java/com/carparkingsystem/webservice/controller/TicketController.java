@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -128,7 +130,8 @@ public class TicketController {
     }
     @GetMapping("/revenue")
     public ResponseEntity<?> getRevenudAll(){
-        List reveneDTOS = ticketService.getRevenueAll();
+        ArrayList reveneDTOS = ticketService.getRevenueAll();
+
         return new ResponseEntity<>(reveneDTOS,HttpStatus.OK);
     }
 }

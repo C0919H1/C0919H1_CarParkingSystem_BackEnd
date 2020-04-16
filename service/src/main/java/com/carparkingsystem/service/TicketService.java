@@ -9,6 +9,8 @@ import com.carparkingsystem.dao.entity.Vehicle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +35,5 @@ public interface TicketService {
     Page<TicketDTO> pageFindAll(Pageable pageable);
 
     Page<TicketDTO> findAllByVehicleLicensePlateContaining(Pageable pageable, String licensePlate);
-    List getRevenueAll();
+    ArrayList getRevenueAll();
 }

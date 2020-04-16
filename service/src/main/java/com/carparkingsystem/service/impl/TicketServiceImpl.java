@@ -21,10 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -268,7 +265,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List getRevenueAll() {
+    public ArrayList getRevenueAll() {
         return ticketRepository.getRevenue();
     }
 }
