@@ -1,5 +1,6 @@
 package com.carparkingsystem.webservice.controller;
 
+import com.carparkingsystem.dao.DTO.ReveneDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO;
 
 import com.carparkingsystem.dao.DTO.TicketDTO2;
@@ -21,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TicketController {
     @Autowired
     TicketService ticketService;
-
     @Autowired
     TicketTypeService ticketTypeService;
 
@@ -115,5 +116,10 @@ public class TicketController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/revenue")
+    public ResponseEntity<?> getRevenudAll(){
+        List reveneDTOS = ticketService.getRevenueAll();
+        return new ResponseEntity<>(reveneDTOS,HttpStatus.OK);
     }
 }

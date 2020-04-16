@@ -1,5 +1,6 @@
 package com.carparkingsystem.service.impl;
 
+import com.carparkingsystem.dao.DTO.ReveneDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO;
 import com.carparkingsystem.dao.DTO.TicketDTO2;
 import com.carparkingsystem.dao.DTO.TicketDTO3;
@@ -17,15 +18,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TicketServiceImpl implements TicketService {
     private String startDate = "", endDate = "", ticketregistrationdate = "";
     @Autowired
     TicketRepository ticketRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     ParkingPositionRepository parkingPositionRepository;
@@ -235,5 +242,10 @@ public class TicketServiceImpl implements TicketService {
             return ticketDTO;
         });
         return ticketDTOS;
+    }
+
+    @Override
+    public List getRevenueAll() {
+        return ticketRepository.getRevenue();
     }
 }
