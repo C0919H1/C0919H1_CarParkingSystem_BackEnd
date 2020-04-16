@@ -26,6 +26,7 @@ public interface TicketService {
     TicketDTO findTicketById(Long idTicket);
 
     TicketDTO3 findTicketByIdParkingPosition(Long idTicket);
+    TicketDTO3 findTicketByIdAndDeleteIsFalse(Long idTicket);
 
     Page<TicketDTO> pageFindAll(Pageable pageable);
 
